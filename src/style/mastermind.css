@@ -1,0 +1,71 @@
+.gameplay {
+    width: 400px;
+}
+
+.past-guesses {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.guess {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-items: center;
+    border-bottom: 1px solid grey
+}
+
+.pegs {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-evenly;
+    color: black;
+    padding-right: 10px;
+    border-right: 1px solid grey;
+}
+
+.history-icon {
+    width: 25px;
+    height: 25px;
+    flex-grow: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.peg {
+    color: white;
+}
+
+.hints {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-left: 10px;
+}
+
+.guess-form {
+    display: flex;
+    flex-direction: row;
+    padding-top: 15px;
+}
+
+.guess-form-left {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    width: 50%;
+    padding-right: 10px;
+}
+.guess-form-right {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    padding-left: 10px;
+}

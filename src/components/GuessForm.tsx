@@ -27,6 +27,7 @@ export const GuessForm : React.FC<IGuessFormProps> = (props) => {
         { currentGuess.map((peg, pegIndex) => (
           <FormControl
             as="select"
+            className="guess-input"
             key={ pegIndex }
             value={ peg }
             onChange={ e => {

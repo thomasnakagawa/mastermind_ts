@@ -22,7 +22,7 @@ export const Gameplay : React.FC<IGameplayProps> = (props) => {
   }, [props.gameConfig]);
 
   return (
-    <div className="gameplay">
+    <div className="gameplay" style={{ width: props.gameConfig.numberOfSlots * 100 + "px"}}>
       <GameHistory
         gameHistory={ gameHistory }
         rows={ 12 }

@@ -19,7 +19,7 @@ export const GuessForm : React.FC<IGuessFormProps> = (props) => {
       initialGuess.push(props.defaultValue);
     }
     setCurrentGuess(initialGuess);
-  }, [props.gameConfig.numberOfSlots]);
+  }, [props.gameConfig.numberOfSlots, props.defaultValue]);
 
   return (
     <div className="guess-form">

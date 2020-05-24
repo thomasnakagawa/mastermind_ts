@@ -4,13 +4,22 @@ import { HintSet, GuessSet } from '../util/GameplayUtil';
 import { HistoryRow } from './Gameplay';
 
 interface IGameHistoryProps {
-  gameHistory : Array<HistoryRow>
+  gameHistory : Array<HistoryRow>,
+  rows : number
 }
 
 export const GameHistory : React.FC<IGameHistoryProps> = (props) => {
+  const rows : Array<HistoryRow> = [];
+  props.gameHistory.forEach(entry => rows.push(entry));
+
+  const emptyRowsToAdd = props.rows - rows.length;
+  for (let emptyIndex = 0; emptyIndex < emptyRowsToAdd; emptyIndex++) {
+    rows.push({ userGuess: [], hint: [] });
+  }
+
   return (
     <div className="past-guesses">
-      { props.gameHistory.map((historyRow, historyIndex) => (
+      { rows.map((historyRow, historyIndex) => (
         <HistoryEntry key={ historyIndex } hints={ historyRow.hint } pegs={ historyRow.userGuess }/>
       )) }
     </div>
@@ -24,6 +33,11 @@ interface IHistoryEntryProps {
 
 const HistoryEntry : React.FC<IHistoryEntryProps> = (guess) => {
   const spring = useSpring({opacity: 1, from: { opacity: 0 }});
+
+  if (guess.pegs.length < 1 && guess.hints.length < 1) {
+    return <div className="guess-empty"/>;
+  }
+
   return (
     <animated.div style={spring} className="guess">
       <div className="pegs">

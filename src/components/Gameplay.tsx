@@ -25,6 +25,7 @@ export const Gameplay : React.FC<IGameplayProps> = (props) => {
     <div className="gameplay">
       <GameHistory
         gameHistory={ gameHistory }
+        rows={ 12 }
       />
       <GuessForm
         gameConfig={ props.gameConfig }

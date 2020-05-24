@@ -20,7 +20,7 @@ export function CalculateHintsForGuess(solution : GuessSet, userGuess : GuessSet
   // count the number of times each value occurs in the solution
   const occurancesInSolution : { [key: number]: number } = {};
   solution.forEach(solutionValue => {
-    if (occurancesInSolution.hasOwnProperty(solutionValue) == false) {
+    if (occurancesInSolution.hasOwnProperty(solutionValue) === false) {
       occurancesInSolution[solutionValue] = 0;
     }
     occurancesInSolution[solutionValue] += 1;

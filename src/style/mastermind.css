@@ -59,20 +59,19 @@
     flex-direction: row;
     padding-top: 15px;
     flex-grow: 1;
+    width: 100%;
 }
 
 .guess-form-left {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
-    max-width: 50%;
-    width: 50%;
-    min-width: 50%;
     padding-right: 10px;
+    gap: 10px;
 }
+
 .guess-form-right {
     display: flex;
     flex-direction: row;
-    flex-grow: 1;
     padding-left: 10px;
 }

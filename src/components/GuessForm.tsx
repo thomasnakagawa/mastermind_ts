@@ -50,7 +50,7 @@ export const GuessForm : React.FC<IGuessFormProps> = (props) => {
         )) }
       </div>
       <div className="guess-form-right">
-        <Button onClick={ () => props.onSubmit(currentGuess) }>Submit</Button>
+        <Button onClick={ () => props.onSubmit(currentGuess) }>Guess!</Button>
       </div>
     </div>
   );

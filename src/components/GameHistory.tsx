@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useSpring, animated } from 'react-spring';
 import { HintSet, GuessSet } from '../util/GameplayUtil';
@@ -49,9 +49,10 @@ const HistoryEntry : React.FC<IHistoryEntryProps> = (guess) => {
     <animated.div style={spring} className="guess">
       <div className="pegs">
         { guess.pegs.map((peg, pegIndex) => (
-          <div key={ pegIndex} className="history-icon peg">
-            { peg }
-          </div>
+          <HistoryGuessNumber
+            key={pegIndex}
+            value={peg}
+          />
         ))}
       </div>
       <div className="hints">
@@ -74,4 +75,23 @@ const HistoryEntry : React.FC<IHistoryEntryProps> = (guess) => {
       </div>
     </animated.div>
   );
+}
+
+interface IHistoryGuessNumberProps {
+  value: number;
+}
+
+const HistoryGuessNumber : React.FC<IHistoryGuessNumberProps> = (props) => {
+  const [isHighlighted, setIsHighlighted] = useState(false);
+
+  return (
+    <div
+      className={ "history-icon peg" + ( isHighlighted ? ' highlighted' : '' )}
+      onClick={ () => {
+        setIsHighlighted(!isHighlighted);
+      }}
+    >
+      { props.value }
+    </div>
+  )
 }

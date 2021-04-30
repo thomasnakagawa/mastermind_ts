@@ -1,4 +1,5 @@
 import React from 'react';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useSpring, animated } from 'react-spring';
 import { HintSet, GuessSet } from '../util/GameplayUtil';
 import { HistoryRow } from './Gameplay';
@@ -20,13 +21,19 @@ export const GameHistory : React.FC<IGameHistoryProps> = (props) => {
   return (
     <div className="past-guesses">
       { rows.map((historyRow, historyIndex) => (
-        <HistoryEntry key={ historyIndex } hints={ historyRow.hint } pegs={ historyRow.userGuess }/>
+        <HistoryEntry
+          key={ historyIndex }
+          entryNumber={ historyIndex }
+          hints={ historyRow.hint }
+          pegs={ historyRow.userGuess }
+        />
       )) }
     </div>
   );
 };
 
 interface IHistoryEntryProps {
+  entryNumber: number,
   hints: HintSet,
   pegs: GuessSet
 }
@@ -49,9 +56,20 @@ const HistoryEntry : React.FC<IHistoryEntryProps> = (guess) => {
       </div>
       <div className="hints">
         { guess.hints.map((hint, hintIndex) => (
-          <div key={ hintIndex } className="history-icon hint">
-            { hint }
-          </div>
+          <OverlayTrigger
+            key={hintIndex + '-' + guess.entryNumber}
+            transition={false}
+            placement={'bottom'}
+            overlay={
+              <Tooltip id={`tooltip-${hintIndex + '-' + guess.entryNumber}`}>
+                { hint.description }
+              </Tooltip>
+            }
+          >
+            <div key={ hintIndex } className="history-icon hint">
+              { hint.icon }
+            </div>
+          </OverlayTrigger>
         )) }
       </div>
     </animated.div>

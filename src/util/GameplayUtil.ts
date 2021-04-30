@@ -3,13 +3,27 @@ export interface IGameConfig {
   numberOfSlots: number
 }
 
-export enum HintValues {
-  CorrectAll = "✅",
-  CorrectValueOnly = "🔸",
-  Wrong = "❌"
+export interface HintValue {
+  icon: string,
+  description: string
 }
 
-export type HintSet = Array<HintValues>;
+export const CorrectAllHint : HintValue = {
+  icon: "✅",
+  description: "Correct value, correct position"
+}
+
+export const CorrectValueOnlyHint : HintValue = {
+  icon: "🔸",
+  description: "Correct value, incorrect position"
+}
+
+export const IncorrectHint : HintValue = {
+  icon: "❌",
+  description: "Incorrect value"
+}
+
+export type HintSet = Array<HintValue>;
 export type GuessSet = Array<number>;
 
 export function CalculateHintsForGuess(solution : GuessSet, userGuess : GuessSet) : HintSet {
@@ -26,11 +40,11 @@ export function CalculateHintsForGuess(solution : GuessSet, userGuess : GuessSet
     occurancesInSolution[solutionValue] += 1;
   });
 
-  const newHints : Array<HintValues> = [];
+  const newHints : Array<HintValue> = [];
   // find all perfect matches first
   for (let pegIndex = 0; pegIndex < solution.length; pegIndex++) {
     if (userGuess[pegIndex] === solution[pegIndex]) {
-      newHints.push(HintValues.CorrectAll);
+      newHints.push(CorrectAllHint);
       occurancesInSolution[userGuess[pegIndex]] -= 1;
     }
   }
@@ -39,7 +53,7 @@ export function CalculateHintsForGuess(solution : GuessSet, userGuess : GuessSet
   for (let pegIndex = 0; pegIndex < solution.length; pegIndex++) {
     const valueIsInSolutionButInWrongPlace = userGuess[pegIndex] !== solution[pegIndex] && occurancesInSolution[userGuess[pegIndex]] > 0;
     if (valueIsInSolutionButInWrongPlace) {
-      newHints.push(HintValues.CorrectValueOnly);
+      newHints.push(CorrectValueOnlyHint);
       occurancesInSolution[userGuess[pegIndex]] -= 1;
     }
   }
@@ -47,7 +61,7 @@ export function CalculateHintsForGuess(solution : GuessSet, userGuess : GuessSet
   // then fill the rest with incorrect values
   const wrongsToAdd = solution.length - newHints.length;
   for (let slotIndex = 0; slotIndex < wrongsToAdd; slotIndex++) {
-    newHints.push(HintValues.Wrong);
+    newHints.push(IncorrectHint);
   }
 
   return newHints;
